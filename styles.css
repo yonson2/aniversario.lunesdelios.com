@@ -1,221 +1,222 @@
 canvas {
-				opacity: 0;
-				transition: opacity 1s ease-in-out;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
 }
 
 .announcement {
-				font-family: 'Bungee Spice', sans-serif;
+	font-family: 'Bungee Spice', sans-serif;
 }
 
 #card {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
 }
 
 @keyframes blink {
-				0% {
-								opacity: 1;
-				}
+	0% {
+		opacity: 1;
+	}
 
-				50% {
-								opacity: 0;
-				}
+	50% {
+		opacity: 0;
+	}
 
-				100% {
-								opacity: 1;
-				}
+	100% {
+		opacity: 1;
+	}
 }
 
 .cursor {
-				animation: blink 1s infinite;
+	animation: blink 1s infinite;
 }
 
 .backdrop {
-				backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
 }
 
 .bg-toast {
-				background: rgb(49, 46, 129);
-				background: linear-gradient(180deg, rgba(49, 46, 129, 1) 3%, rgba(30, 58, 138, 1) 31%, rgba(17, 24, 39, 1) 79%);
+	background: rgb(49, 46, 129);
+	background: linear-gradient(180deg, rgba(49, 46, 129, 1) 3%, rgba(30, 58, 138, 1) 31%, rgba(17, 24, 39, 1) 79%);
 }
 
 .heading {
-				visibility: hidden;
+	visibility: hidden;
 }
 
 .circle {
-				position: absolute;
-				bottom: 0;
-				left: 50%;
-				transform: translateX(-50%);
-				width: 10vh;
-				height: 5vh;
-				clip-path: circle(50% at 50% 100%);
-				overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 10vh;
+	height: 5vh;
+	clip-path: circle(50% at 50% 100%);
+	overflow: hidden;
 }
 
 .quarter-circle-left {
-				width: 10vh;
-				height: 10vh;
-				clip-path: circle(50% at 0 100%);
-				position: absolute;
-				bottom: 0;
-				left: 0;
+	width: 10vh;
+	height: 10vh;
+	clip-path: circle(50% at 0 100%);
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 .quarter-circle-right {
-				width: 10vh;
-				height: 10vh;
-				clip-path: circle(50% at 100% 100%);
-				position: absolute;
-				bottom: 0;
-				right: 0;
+	width: 10vh;
+	height: 10vh;
+	clip-path: circle(50% at 100% 100%);
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
 :root {
-				--color-text: papayawhip;
-				--color-bg: navy;
-				--color-bg-accent: #2626a0;
-				--size: clamp(10rem, 1rem + 40vmin, 30rem);
-				--gap: calc(var(--size) / 14);
-				--duration: 60s;
-				--scroll-start: 0;
-				--scroll-end: calc(-100% - var(--gap));
+	--color-text: papayawhip;
+	--color-bg: navy;
+	--color-bg-accent: #2626a0;
+	--size: clamp(10rem, 1rem + 40vmin, 30rem);
+	--gap: calc(var(--size) / 14);
+	--duration: 60s;
+	--scroll-start: 0;
+	--scroll-end: calc(-100% - var(--gap));
 }
 
 .marquee {
-				display: flex;
-				overflow: hidden;
-				user-select: none;
-				gap: var(--gap);
-				mask-image: linear-gradient(
-				var(--mask-direction, to right),
-				hsl(0 0% 0% / 0),
-				hsl(0 0% 0% / 1) 20%,
-				hsl(0 0% 0% / 1) 80%,
-				hsl(0 0% 0% / 0)
-				);
+	display: flex;
+	overflow: hidden;
+	user-select: none;
+	gap: var(--gap);
+	mask-image: linear-gradient(
+	var(--mask-direction, to right),
+	hsl(0 0% 0% / 0),
+	hsl(0 0% 0% / 1) 20%,
+	hsl(0 0% 0% / 1) 80%,
+	hsl(0 0% 0% / 0)
+	);
 }
 
 .marquee svg {
-				display: grid;
-				place-items: center;
-				/* width: var(--size); */
-				fill: var(--color-text);
-				/* background: var(--color-bg-accent); */
-				/* aspect-ratio: 16/9; */
-				padding: calc(var(--size) / 10);
-				/* border-radius: 0.5rem; */
+	display: grid;
+	place-items: center;
+	/* width: var(--size); */
+	fill: var(--color-text);
+	/* background: var(--color-bg-accent); */
+	/* aspect-ratio: 16/9; */
+	padding: calc(var(--size) / 10);
+	/* border-radius: 0.5rem; */
 }
 
 .marquee__group {
-				flex-shrink: 0;
-				display: flex;
-				align-items: center;
-				justify-content: space-around;
-				gap: var(--gap);
-				min-width: 100%;
-				animation: scroll-x var(--duration) linear infinite;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	gap: var(--gap);
+	min-width: 100%;
+	animation: scroll-x var(--duration) linear infinite;
 }
 
 @keyframes scroll-x {
-				from {
-								transform: translateX(var(--scroll-start));
-				}
-				to {
-								transform: translateX(var(--scroll-end));
-				}
+	from {
+		transform: translateX(var(--scroll-start));
+	}
+	to {
+		transform: translateX(var(--scroll-end));
+	}
 }
 
 @keyframes scroll-y {
-				from {
-								transform: translateY(var(--scroll-start));
-				}
-				to {
-								transform: translateY(var(--scroll-end));
-				}
+	from {
+		transform: translateY(var(--scroll-start));
+	}
+	to {
+		transform: translateY(var(--scroll-end));
+	}
 }
 
 #prize-modal {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: 200;
-				background-color: #000;
-				overflow: hidden;
-				display: flex;
-				align-items: center;
-				justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 200;
+	background-color: #000;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 #prize-modal h3 {
-				margin: 0; /* To remove default margin on h3 */
-				width: 100%;
-				height: 100%;
-				z-index: 200;
-				background-color: #000;
-				overflow: hidden;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size:5rem;
-				font-weight:700;
+	margin: 0; /* To remove default margin on h3 */
+	width: 100%;
+	height: 100%;
+	z-index: 200;
+	background-color: #000;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size:5rem;
+	font-weight:700;
 }
 
 .wave-ratio {
-				aspect-ratio: 900/300;
-				width: 100%;
-				background-repeat: no-repeat;
-				background-position: center;
-				background-size: cover;
+	aspect-ratio: 900/300;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
 
 }
 
 .wave1 {
-				background-image: url('/images/waves1.svg');
+	background-image: url('/images/waves1.svg');
 }
 
 .bottom-wave-ratio {
-				aspect-ratio: 900/600;
-				width: 100%;
-				background-repeat: no-repeat;
-				background-position: center;
-				background-size: cover;
-				bottom: 0;
+	aspect-ratio: 900/600;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	bottom: 0;
 
 }
 
 .bottom-wave {
-				background-image: url('/images/wave-bottom.svg');
+	background-image: url('/images/wave-bottom.svg');
 }
 
 
 .bottom-wave2 {
-				background-image: url('/images/wave-bottom-2.svg');
+	background-image: url('/images/wave-bottom-2.svg');
 }
 
 #main::before {
-  animation: bounce 1s ease infinite;
-  bottom: 2rem;
-  color: #fff;
-  content: '╲╱';
-  font-size: 2rem;
-  height: 4rem;
-  left: 50%;
-  letter-spacing: -1px;
-  line-height: 4rem;
-  margin-left: -3rem;
-  opacity: 0.8;
-  position: absolute;
-  text-align: center;
-  width: 6rem;
+	animation: bounce 1s ease infinite;
+	bottom: 2rem;
+	color: #fff;
+	content: '╲╱';
+	font-size: 2rem;
+	height: 4rem;
+	left: 50%;
+	letter-spacing: -1px;
+	line-height: 4rem;
+	margin-left: -3rem;
+	opacity: 0.8;
+	position: absolute;
+	text-align: center;
+	width: 6rem;
 }
 
 @keyframes bounce {
-  50% {
-    transform: translateY(-50%);
-  }
+	50% {
+		transform: translateY(-50%);
+	}
 }

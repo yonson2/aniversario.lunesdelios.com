@@ -6,6 +6,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 gsap.registerPlugin(TextPlugin);
 
 const to = 10;
+const quejesoTickets = [];
 const shirt_prizes = 1;
 const cap_prizes = 1;
 const beer_prizes = 3;
@@ -78,18 +79,28 @@ function processForm() {
   if (newImg !== 'images/nada.png') {
     const container = document.getElementById('prize-modal');
     const element = document.createElement("h3");
-    element.textContent = "PREMIO";
+    const prizeAudio = new Audio('premio.mp3');
+    const quejesoAudio = new Audio('quejeso.mp3');
+
+    let audioToPlay = prizeAudio;
+    if (quejesoTickets.includes(value)) {
+      audioToPlay = quejesoAudio;
+      element.textContent = "QUEJESO"
+    } else {
+      element.textContent = "PREMIO";
+    }
+
     container.appendChild(element);
     const duration = 0.96;
     const time = 0;
 
-    const prizeAudio = new Audio('premio.mp3');
+
     const tl = gsap.timeline({
       delay: 0.1,
       repeat: 4,
       repeatDelay: 0.5,
-      onStart: () => prizeAudio.play(),
-      onRepeat: () => prizeAudio.play(),
+      onStart: () => audioToPlay.play(),
+      onRepeat: () => audioToPlay.play(),
       onComplete: () => {
         gsap.set(container, { autoAlpha: 0, duration: 0.2, ease: 'power1.in', onComplete: () =>  element.remove()});
       }
