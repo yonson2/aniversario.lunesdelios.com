@@ -175,7 +175,7 @@ canvas {
 }
 
 .wave1 {
-				background-image: url('./images/waves1.svg');
+				background-image: url('/images/waves1.svg');
 }
 
 .bottom-wave-ratio {
@@ -189,10 +189,10 @@ canvas {
 }
 
 .bottom-wave {
-				background-image: url('./images/wave-bottom.svg');
+				background-image: url('/images/wave-bottom.svg');
 }
 
 
 .bottom-wave2 {
-				background-image: url('./images/wave-bottom-2.svg');
+				background-image: url('/images/wave-bottom-2.svg');
 }
