@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "vite build",
+    "tailwind": "tailwindcss -i ./input.css -o ./output.css",
+    "build": "tailwindcss -i ./input.css -o ./output.css && vite build",
     "preview": "vite preview"
   },
   "author": "",
