@@ -20,7 +20,7 @@
 	<div class="min-h-screen flex items-center justify-center">
 		<!-- max-w-screen-md -->
 		<section class="w-full mx-auto rounded-lg">
-			<section id="main" class="h-screen bg-toast relative overflow-hidden">
+			<section id="main" class="h-screen wave-ratio wave1 relative overflow-hidden">
 				<div id="header" class="relative z-[3] pt-10">
 					<div id="header-first" class="overflow-hidden pt-6 flex justify-center text-center announcement text-7xl">
 						<h1 class="heading">Lunes</h1>
@@ -43,7 +43,7 @@
 			<section class="h-full bg-gray-800">
 				<div class="h-full backdrop z-[3] relative">
 					<div class="py-6">
-						<p id="headerTitle" class="text-center announcement text-3xl">
+						<p id="headerTitle" class="mx-4 text-center announcement text-3xl">
 							Nos liamos el lunes?
 						</p>
 					</div>
@@ -116,16 +116,16 @@
 				</div>
 			</section>
 
-			<section id="last-section" class="h-4/6 md:h-5/6 lg:h-screen bg-gray-900 relative z-[3]">
+			<section id="last-section" class="h-4/6 md:h-5/6 lg:h-screen bottom-wave-ratio bottom-wave relative z-[3]">
 				<div
 					class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-					<div id="prize-form" class="bg-gray-900 mx-auto max-w-xl pt-36 lg:pt-48">
+					<div id="prize-form" class="mx-auto max-w-xl pt-36 lg:pt-48">
 						<div class="px-4 pt-5 sm:p-6">
 							<h3 class="text-lg font-medium leading-6 text-gray-300">Tienes una papeleta?</h3>
 							<div class="mt-2 max-w-xl text-sm text-gray-400">
 								<p>Introduce tu número y comprueba tu premio.</p>
 							</div>
-							<div id="demo" class="text-green-600 invisible"></div>
+							<div id="prize-modal" class="text-green-600 invisible"></div>
 							<form class="mt-5 sm:flex sm:items-end">
 								<div class="w-full sm:max-w-xs sm:flex sm:items-center mb-4">
 									<select id="location" name="location"
@@ -140,11 +140,11 @@
 							</form>
 						</div>
 					</div>
-					<div id="prize-result" class="bg-gray-900 mx-auto max-w-xl py-12 lg:py-36 rounded-lg">
+					<div id="prize-result" class="mx-auto max-w-xl py-12 lg:py-36 rounded-lg">
 						<img class="h-48 rounded-lg opacity-100 transition-opacity duration-500 ease-in-out" src="">
 					</div>
 				</div>
-				<footer class="bg-gray-900" aria-labelledby="footer-heading">
+				<footer aria-labelledby="footer-heading">
 					<h2 id="footer-heading" class="sr-only">Footer</h2>
 					<div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
 						<div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">

@@ -2,9 +2,7 @@ import prand from 'pure-rand';
 
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
-import { Flip } from "gsap/Flip";
 
-gsap.registerPlugin(Flip);
 gsap.registerPlugin(TextPlugin);
 
 const to = 10;
@@ -78,7 +76,7 @@ function processForm() {
   gsap.to(prize.querySelector('img'), { duration: 0.50, opacity: 1, ease: 'none' });
 
   if (newImg !== 'images/nada.png') {
-    const container = document.getElementById('demo');
+    const container = document.getElementById('prize-modal');
     const element = document.createElement("h3");
     element.textContent = "PREMIO";
     container.appendChild(element);
@@ -108,5 +106,3 @@ function processForm() {
 
 var button = document.getElementById("form-button");
 button.addEventListener("click", processForm);
-
-

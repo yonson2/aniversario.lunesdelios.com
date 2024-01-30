@@ -141,6 +141,13 @@ document.addEventListener("DOMContentLoaded", function() {
       pinSpacing: true,
     },
   });
+
+  // const state = document.getElementById('last-section');
+  // Flip.getState(state);
+  // state.classList.remove('bottom-wave');
+  // state.classList.add('bottom-wave2');
+  // Flip.from(state, { duration: 2, ease: "power1.inOut" });
+
 });
 
 //
