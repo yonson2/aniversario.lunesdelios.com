@@ -117,10 +117,6 @@ document.addEventListener("DOMContentLoaded", function() {
     .to('.quarter-circle-left', { duration: 0.5, width: '200vh', height: '200vh' })
     .to('.quarter-circle-right', { duration: 0.5, width: '200vh', height: '200vh' }, 0);
 
-  if (!hasTouchScreen) {
-    corner.to('.circle', { duration: 1, width: '400vh', height: '200vh' }, 0);
-  }
-
   ScrollTrigger.create({
     trigger: '.quarter-circle-left',
     start: 'bottom bottom',
