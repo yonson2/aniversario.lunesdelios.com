@@ -7,38 +7,38 @@ gsap.registerPlugin(TextPlugin);
 
 const to = 10;
 const quejesoTickets = [];
-const shirt_prizes = 1;
-const cap_prizes = 1;
-const beer_prizes = 3;
+const shirtPrizes = 2;
+const capPrizes = 3;
+const eggPrizes = 1;
 
-const lucky_shirts = [];
-const lucky_caps = [];
-const lucky_beers = [];
+const luckyShirts = [];
+const luckyCaps = [];
+const luckyEggs = [];
 
 const rng = prand.xoroshiro128plus(to);
 
-for (let i = 0; i < shirt_prizes; i++) {
+for (let i = 0; i < shirtPrizes; i++) {
   let winner = prand.unsafeUniformIntDistribution(1, to, rng);
-  while (lucky_shirts.includes(winner) || lucky_beers.includes(winner) || lucky_caps.includes(winner)) {
+  while (luckyShirts.includes(winner) || luckyEggs.includes(winner) || luckyCaps.includes(winner)) {
     winner = prand.unsafeUniformIntDistribution(1, to, rng);
   }
-  lucky_shirts.push(winner);
+  luckyShirts.push(winner);
 }
 
-for (let i = 0; i < cap_prizes; i++) {
+for (let i = 0; i < capPrizes; i++) {
   let winner = prand.unsafeUniformIntDistribution(1, to, rng);
-  while (lucky_shirts.includes(winner) || lucky_beers.includes(winner) || lucky_caps.includes(winner)) {
+  while (luckyShirts.includes(winner) || luckyEggs.includes(winner) || luckyCaps.includes(winner)) {
     winner = prand.unsafeUniformIntDistribution(1, to, rng);
   }
-  lucky_caps.push(winner);
+  luckyCaps.push(winner);
 }
 
-for (let i = 0; i < beer_prizes; i++) {
+for (let i = 0; i < eggPrizes; i++) {
   let winner = prand.unsafeUniformIntDistribution(1, to, rng);
-  while (lucky_shirts.includes(winner) || lucky_beers.includes(winner) || lucky_caps.includes(winner)) {
+  while (luckyShirts.includes(winner) || luckyEggs.includes(winner) || luckyCaps.includes(winner)) {
     winner = prand.unsafeUniformIntDistribution(1, to, rng);
   }
-  lucky_beers.push(winner);
+  luckyEggs.push(winner);
 }
 
 for (let i = 1; i <= to; i++) {
@@ -61,12 +61,12 @@ function processForm() {
 
   let imgRoute;
 
-  if (lucky_shirts.includes(value)) {
+  if (luckyShirts.includes(value)) {
     imgRoute = 'images/premio-camiseta.png';
-  } else if (lucky_caps.includes(value)) {
+  } else if (luckyCaps.includes(value)) {
     imgRoute = 'images/premio-gorra.png';
-  } else if (lucky_beers.includes(value)) {
-    imgRoute = 'images/premio-cerveza.png';
+  } else if (luckyEggs.includes(value)) {
+    imgRoute = 'images/premio-huevos.png';
   } else {
     imgRoute = 'images/nada.png';
   }
@@ -76,7 +76,7 @@ function processForm() {
   prize.replaceChild(newImg, prize.querySelector('img'));
   gsap.to(prize.querySelector('img'), { duration: 0.50, opacity: 1, ease: 'none' });
 
-  if (newImg !== 'images/nada.png') {
+  if (imgRoute !== 'images/nada.png' || quejesoTickets.includes(value)) {
     const container = document.getElementById('prize-modal');
     const element = document.createElement("h3");
     const prizeAudio = new Audio('premio.mp3');
@@ -102,7 +102,7 @@ function processForm() {
       onStart: () => audioToPlay.play(),
       onRepeat: () => audioToPlay.play(),
       onComplete: () => {
-        gsap.set(container, { autoAlpha: 0, duration: 0.2, ease: 'power1.in', onComplete: () =>  element.remove()});
+        gsap.set(container, { autoAlpha: 0, duration: 0.2, ease: 'power1.in', onComplete: () => element.remove() });
       }
     });
 
@@ -110,8 +110,8 @@ function processForm() {
     gsap.to(container, { duration: 0, ease: 'none', autoAlpha: 1 })
 
     tl
-      .to(element, duration, { scale: 1.2, ease: "slow(0.25, 0.9)" }, time)
-      .to(element, duration, { autoAlpha: 1, ease: "slow(0.25, 0.9, true)" }, time);
+      .to(element, { duration, scale: 1.2, ease: "slow(0.25, 0.9)" }, time)
+      .to(element, { duration, autoAlpha: 1, ease: "slow(0.25, 0.9, true)" }, time);
   }
 }
 
