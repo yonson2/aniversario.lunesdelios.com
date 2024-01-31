@@ -117,3 +117,27 @@ function processForm() {
 
 var button = document.getElementById("form-button");
 button.addEventListener("click", processForm);
+
+function getCountdown(targetDate) {
+  const now = new Date();
+  const target = new Date(targetDate);
+
+  const timeDiff = target - now;
+
+  const hours = Math.min(99, Math.floor(timeDiff / (1000 * 60 * 60))); // max value or css breaks
+  console.log(hours);
+  const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+  return {hours, minutes, seconds};
+}
+
+setInterval(() => {
+  const targetDate = new Date('2024-02-06T00:00:00');
+  const countdown = getCountdown(targetDate);
+
+  document.getElementById('countdown-hours').style.cssText = `--value:${countdown.hours}`;
+  document.getElementById('countdown-minutes').style.cssText = `--value:${countdown.minutes}`;
+  document.getElementById('countdown-seconds').style.cssText = `--value:${countdown.seconds}`;
+
+}, 1000);

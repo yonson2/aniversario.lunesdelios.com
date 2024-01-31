@@ -117,10 +117,10 @@
 			</section>
 
 			<section id="last-section" class="h-screen bottom-wave-ratio bottom-wave relative z-[3]">
-				<div class="pt-72 lg:pt-96"></div>
-				<div class="mx-auto mockup-code max-w-xs">
+				<div id="countdown-padding" class="pt-24"></div>
+				<div id="countdown" class="mx-auto mockup-code max-w-xs relative">
 					<pre data-prefix=">" class="text-warning"><code>Amañando el sorteo...</code></pre>
-					<pre data-prefix=">" class="text-success"><code><span class="countdown">Quedan: <span style="--value:10;"></span>h <span style="--value:24;"></span>m <span style="--value:32;"></span>s </span> </code> </pre>
+					<pre data-prefix=">" class="text-success"><code><span class="countdown">Quedan: <span id="countdown-hours" style="--value:99;"></span>h <span id="countdown-minutes" style="--value:24;"></span>m <span id="countdown-seconds" style="--value:32;"></span>s </span> </code> </pre>
 				</div>
 				<div id="prize-container"
 					class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 hidden">

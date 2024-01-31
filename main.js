@@ -112,6 +112,17 @@ document.addEventListener("DOMContentLoaded", function() {
     scrub: true,
   });
 
+  gsap.to("#countdown", {
+    autoAlpha: 1,
+    scrollTrigger: {
+      trigger: '#countdown',
+      start: 'clamp(center center)',
+      endTrigger: '#last-section',
+      end: 'clamp(center center)',
+      pin: true,
+    }
+  })
+
   gsap.to("#card", {
     scrollTrigger: {
       trigger: "#card",
