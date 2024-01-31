@@ -144,7 +144,7 @@ renderer.setClearColor(0x000000, 0);
 const loader = new GLTFLoader();
 
 let model;
-const movementTl = gsap.timeline({ repeat: -1, yoyo: true, ease: 'none' });
+const movementTl = gsap.timeline({ repeat: -1, yoyo: true});
 
 loader.load('models/tarjeta-cara.glb', (gltf) => {
   gltf.scene.traverse((child) => {
@@ -180,9 +180,11 @@ loader.load('models/tarjeta-cara.glb', (gltf) => {
 
   // Subtle movement
   movementTl.to(model.rotation, { duration: 1.5, x: '-=0.2', z: '-=0.20', ease: "none" })
-    .to(model.rotation, { duration: 1, x: '+=0.2', ease: 'none' })
-    .to(model.rotation, { duration: 1, x: '+=0.2', ease: 'none' })
-    .to(model.rotation, { duration: 1.5, x: '-=0.2', ease: 'none' });
+  // .to(model.rotation, { duration: 1.5, x: '+=0.2', z: '+=0.20', ease: "none" })
+
+    // .to(model.rotation, { duration: 1, x: '+=0.2', ease: 'none' })
+    // .to(model.rotation, { duration: 1, x: '+=0.2', ease: 'none' })
+    // .to(model.rotation, { duration: 1.5, x: '-=0.2', ease: 'none' });
 
 });
 
