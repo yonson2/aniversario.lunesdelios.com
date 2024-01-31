@@ -6,7 +6,7 @@ import { TextPlugin } from "gsap/TextPlugin";
 gsap.registerPlugin(TextPlugin);
 
 const to = 10;
-const quejesoTickets = [];
+const quejesoTickets = [5];
 const shirtPrizes = 2;
 const capPrizes = 3;
 const eggPrizes = 1;
@@ -76,17 +76,23 @@ function processForm() {
   prize.replaceChild(newImg, prize.querySelector('img'));
   gsap.to(prize.querySelector('img'), { duration: 0.50, opacity: 1, ease: 'none' });
 
-  if (imgRoute !== 'images/nada.png' || quejesoTickets.includes(value)) {
     const container = document.getElementById('prize-modal');
     const element = document.createElement("h3");
     const prizeAudio = new Audio('premio.mp3');
     const quejesoAudio = new Audio('quejeso.mp3');
+    const loserAudio = new Audio('loser.mp3');
 
     let audioToPlay = prizeAudio;
     if (quejesoTickets.includes(value)) {
       audioToPlay = quejesoAudio;
+      element.classList.add('text-yellow-500');
       element.textContent = "QUEJESO"
+    } else if (imgRoute === 'images/nada.png') {
+      audioToPlay = loserAudio;
+      element.classList.add('text-red-500');
+      element.textContent = "LOSER"
     } else {
+      element.classList.add('text-green-600');
       element.textContent = "PREMIO";
     }
 
@@ -112,7 +118,6 @@ function processForm() {
     tl
       .to(element, { duration, scale: 1.2, ease: "slow(0.25, 0.9)" }, time)
       .to(element, { duration, autoAlpha: 1, ease: "slow(0.25, 0.9, true)" }, time);
-  }
 }
 
 const button = document.getElementById("form-button");
