@@ -194,7 +194,10 @@
 					map.removeLayer('alpiscoRoute');
 					map.removeSource('LineString');
 					alpiscoMarker.remove();
-					map.setCenter(tacosLtLng);
+					map.easeTo({
+						center: tacosLtLng,
+						duration: 300,
+					});
 				}
 
 				function ginClick() {
