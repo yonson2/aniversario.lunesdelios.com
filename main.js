@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import SplitType from 'split-type'
 
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -46,46 +45,34 @@ if ("maxTouchPoints" in navigator) {
 }
 
 function animateText() {
-  const headers = ["first", "second", "third"];
-  const chars = [];
-  for (const elem of headers) {
-    const text = new SplitType(`#header-${elem}`, { types: 'chars' });
-    chars.push(text.chars);
+  // gsap.set('.heading', { autoAlpha: 1 });
+  gsap.from(".heading", {
+    autoAlpha: 0,
+    duration: 1,
+    y: 100,
+    ease: "power4.out",
+    skewY: 17,
+    skewX: 10,
+    // stagger: { amount: 0.1 },
+    onComplete: onCompleteIntro
+  });
 
-    let direction = -122;
-
-    gsap.set('.heading', { autoAlpha: 1 });
-    // second element "DE" comes from the sides, hacky way to do it.
-    if (elem === "second") {
-      gsap.set(text.chars[0], { xPercent: -2000 });
-      gsap.set(text.chars[1], { xPercent: 2000 });
-    } else {
-      gsap.set(text.chars, { yPercent: direction });
-    }
-
-    gsap.to(text.chars, {
-      yPercent: 0,
-      xPercent: 0,
-      ease: "sine.out",
-      delay: 0.4,
-      stagger: { from: "random", amount: 0.5, ease: "power1.out" },
-      onComplete: onCompleteIntro
-    });
-  }
+  setTimeout(() => {initialSpin(); spinTl = gsap.timeline()}, 700);
 
   function onCompleteIntro() {
-    gsap.to(chars, {
-      yPercent: -122,
-      stagger: { from: "random", amount: 1 },
+    gsap.to(".heading", {
+      duration: 1.2,
+      y: -100,
+      // stagger: { amount: 0.2 },
+      skewY: -7,
+      ease: "power4.out",
       scrollTrigger: {
         trigger: '#header',
         start: "top top",
         end: () => `${document.querySelector('#header').offsetHeight * 0.6}`,
         scrub: 1,
-      }
-    });
-    initialSpin();
-    spinTl = gsap.timeline({});;
+      },
+    })
   }
 }
 
@@ -95,16 +82,13 @@ setInterval(() => {
     duration: 1.5,
     ease: 'bounce.in',
   });
-}, 5000)
+}, 5000);
 
 document.querySelector('#hero-trivia').textContent = sentences[Math.floor(Math.random() * sentences.length)];
 
 shuffleArray(brands);
 let svgs = "";
 for (const brand of brands) {
-  // <svg>
-  // 	<use xlink:href="#mcdonalds" />
-  // </svg>
   svgs += `<svg><use xlink:href="#${brand}" /></svg>`;
 }
 
@@ -121,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function() {
     trigger: '.quarter-circle-left',
     start: 'bottom bottom',
     endTrigger: '#map',
-    // end: "+=300%",
     animation: corner,
     scrub: true,
   });
@@ -129,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
   gsap.to("#card", {
     scrollTrigger: {
       trigger: "#card",
-      endTrigger: "#prize-form",
+      endTrigger: "#card-scroll",
       start: "clamp(center center)",
       end: "clamp(center center)",
       pin: true,
@@ -137,12 +120,6 @@ document.addEventListener("DOMContentLoaded", function() {
       pinSpacing: true,
     },
   });
-
-  // const state = document.getElementById('last-section');
-  // Flip.getState(state);
-  // state.classList.remove('bottom-wave');
-  // state.classList.add('bottom-wave2');
-  // Flip.from(state, { duration: 2, ease: "power1.inOut" });
 
 });
 
@@ -213,8 +190,8 @@ function initialSpin() {
   if (model) {
     const tl = gsap.timeline({});
     tl
-      .to('canvas', { duration: 0.30, opacity: 1, ease: 'power2.inOut' })
-      .to(model.rotation, { duration: 0.5, z: -1 * Math.PI * 2, ease: 'none', delay: 0.1 });
+      .to('canvas', { duration: 0.40, opacity: 1, ease: 'power2.inOut' })
+      .to(model.rotation, { duration: 0.7, z: -1 * Math.PI * 2, ease: 'none' }, 0)
   }
 }
 
