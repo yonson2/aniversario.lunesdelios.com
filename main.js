@@ -45,19 +45,22 @@ if ("maxTouchPoints" in navigator) {
 }
 
 function animateText() {
-  // gsap.set('.heading', { autoAlpha: 1 });
-  gsap.from(".heading", {
+  const tl = gsap.timeline({paused: true})
+  tl.from(".heading", {
     autoAlpha: 0,
-    duration: 1,
+    duration: 1.3,
+    delay: 0.3,
     y: 100,
     ease: "power4.out",
     skewY: 17,
     skewX: 10,
     // stagger: { amount: 0.1 },
     onComplete: onCompleteIntro
-  });
+  })
+  .progress(1).progress(0) // prerecords the values and properties upfront
+  .play();
 
-  setTimeout(() => {initialSpin(); spinTl = gsap.timeline()}, 700);
+  setTimeout(() => {initialSpin(); spinTl = gsap.timeline()}, 600);
 
   function onCompleteIntro() {
     gsap.to(".heading", {
@@ -190,10 +193,12 @@ loader.load('models/tarjeta-cara.glb', (gltf) => {
 
 function initialSpin() {
   if (model) {
-    const tl = gsap.timeline({});
+    const tl = gsap.timeline({paused: true});
     tl
-      .to('canvas', { duration: 0.40, opacity: 1, ease: 'power2.inOut' })
+      .to('canvas', { duration: 0, opacity: 1, ease: 'power2.inOut' })
       .to(model.rotation, { duration: 0.7, z: -1 * Math.PI * 2, ease: 'none' }, 0)
+      .progress(1).progress(0) // prerecords the values and properties upfront
+      .play();
   }
 }
 
