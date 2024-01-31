@@ -66,7 +66,7 @@
 														<path fill="currentColor"
 															d="M19 18H5a4 4 0 0 1-4-4a8 8 0 0 1 8-8c1.06 0 2.07.21 3 .58c.93-.37 1.94-.58 3-.58a8 8 0 0 1 8 8a4 4 0 0 1-4 4M3 14a2 2 0 0 0 2 2a2 2 0 0 0 2-2c0-2.37 1.03-4.5 2.67-5.96L9 8a6 6 0 0 0-6 6m16 2a2 2 0 0 0 2-2a6 6 0 0 0-6-6a6 6 0 0 0-6 6c0 .73-.19 1.41-.54 2z" />
 													</svg>
-													Primero unos tacos.
+													<button id="taco-button" class="link">Primero unos tacos</button>.
 												</dt>
 												<dd class="inline">Y unas cervezas. Y después unos tacos más.</dd>
 											</div>
@@ -77,7 +77,7 @@
 														<path fill="currentColor"
 															d="M296 464h-56V338.78l168.74-168.73c15.52-15.52 4.53-42.05-17.42-42.05H24.68c-21.95 0-32.94 26.53-17.42 42.05L176 338.78V464h-56c-22.09 0-40 17.91-40 40c0 4.42 3.58 8 8 8h240c4.42 0 8-3.58 8-8c0-22.09-17.91-40-40-40M432 0c-62.61 0-115.35 40.2-135.18 96h52.54c16.65-28.55 47.27-48 82.64-48c52.93 0 96 43.06 96 96s-43.07 96-96 96c-14.04 0-27.29-3.2-39.32-8.64l-35.26 35.26C379.23 279.92 404.59 288 432 288c79.53 0 144-64.47 144-144S511.53 0 432 0" />
 													</svg>
-													Y después una copa.
+													<button id="gin-button" class="link">Y después una copa</button>.
 												</dt>
 												<dd class="inline">Conocemos los mejores gin-tonics de Madrid.</dd>
 											</div>
@@ -120,7 +120,9 @@
 				<div id="countdown-padding" class="pt-24"></div>
 				<div id="countdown" class="mx-auto mockup-code max-w-xs relative">
 					<pre data-prefix=">" class="text-warning"><code>Amañando el sorteo...</code></pre>
-					<pre data-prefix=">" class="text-success"><code><span class="countdown">Quedan: <span id="countdown-hours" style="--value:99;"></span>h <span id="countdown-minutes" style="--value:24;"></span>m <span id="countdown-seconds" style="--value:32;"></span>s </span> </code> </pre>
+					<pre data-prefix=">" class="text-success"><code><span class="countdown">Quedan: <span id="countdown-hours"
+									style="--value:99;"></span>h <span id="countdown-minutes" style="--value:24;"></span>m <span
+									id="countdown-seconds" style="--value:32;"></span>s </span> </code> </pre>
 				</div>
 				<div id="prize-container"
 					class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 hidden">
@@ -156,22 +158,128 @@
 
 	<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 	<script>
+		let hasTouchScreen = false;
+		if ("maxTouchPoints" in navigator) {
+			hasTouchScreen = navigator.maxTouchPoints > 0;
+		}
+
 		mapboxgl.accessToken = 'pk.eyJ1IjoieW9uc29uMiIsImEiOiJjbHJzMGY2ZnAwMXU1MmttNnd2MWwxbXppIn0.j7S6tS9q4nEFDzzvy2WFuA';
 		const mapboxClient = mapboxSdk({accessToken: mapboxgl.accessToken});
 		document.addEventListener('DOMContentLoaded', function () {
-			var map = new mapboxgl.Map({
+			const tacosLtLng = [-3.6973663044141754, 40.432202602110536];
+			const alpiscoLtLng = [-3.7057298821137357, 40.4341097662221];
+
+			const map = new mapboxgl.Map({
 				container: 'map',
 				style: 'mapbox://styles/mapbox/streets-v12',
-				center: [-3.7070750953916014, 40.425761511712224],
+				center: tacosLtLng,
 				zoom: 16,
 				interactive: false,
 			});
 
-			// Add a marker at the specified location
-			new mapboxgl.Marker().setLngLat([-3.7070750953916014, 40.425761511712224]).addTo(map);
-
 			window.addEventListener('resize', function () {
 				map.resize();
+			});
+
+			// tacos marker
+			const tacosMarker = new mapboxgl.Marker().setLngLat(tacosLtLng).addTo(map);
+			let alpiscoMarker = new mapboxgl.Marker({color: '#f87171'}).setLngLat(alpiscoLtLng).addTo(map);
+
+			map.on('load', () => {
+				function tacoClick() {
+					if (hasTouchScreen) {
+						document.querySelector('#taco-button').scrollIntoView({behavior: 'smooth'});
+					}
+
+					map.removeLayer('alpiscoRoute');
+					map.removeSource('LineString');
+					alpiscoMarker.remove();
+					map.setCenter(tacosLtLng);
+				}
+
+				function ginClick() {
+					if (hasTouchScreen) {
+						document.querySelector('#taco-button').scrollIntoView({behavior: 'smooth'});
+					}
+					alpiscoMarker = new mapboxgl.Marker({color: '#f87171'}).setLngLat(alpiscoLtLng).addTo(map);
+
+					const geojson = {
+						'type': 'FeatureCollection',
+						'features': [
+							{
+								'type': 'Feature',
+								'geometry': {
+									'type': 'LineString',
+									'properties': {},
+									'coordinates': [
+										tacosLtLng,
+										[-3.6974005534003007, 40.43229557647833],
+										[-3.697442218790116, 40.43236127090349],
+										[-3.6974511470879334, 40.432475669663056],
+										[-3.6976669142861596, 40.43271352784879],
+										[-3.6978960739301447, 40.4326750175332],
+										[-3.6980508311162277, 40.432959313759255],
+										[-3.7000692314138472, 40.43244171715471],
+										[-3.7009635493128155, 40.43272261640336],
+										[-3.701020095198993, 40.43268750406244],
+										[-3.7011034259786246, 40.43269769796976],
+										[-3.7011465794180767, 40.43276678996752],
+										[-3.701155169613121, 40.4327895008912],
+										[-3.7015590581583715, 40.432993848954396],
+										[-3.7019814724011266, 40.433084161636],
+										[-3.7038768110879863, 40.43267192937516],
+										[-3.704066072300728, 40.43317152091794],
+										[-3.70428418073866, 40.43312286101789],
+										[-3.7046132236535554, 40.43317152091842],
+										[-3.704767403778984, 40.43342340690004],
+										[-3.704840733368758, 40.43352215739665],
+										[-3.705413933068774, 40.433383701818165],
+										[-3.705541947666625, 40.43378380677976],
+										[-3.7056650857226323, 40.43378195079404],
+										alpiscoLtLng,
+									]
+								}
+							}
+						]
+					};
+
+					map.addSource('LineString', {
+						'type': 'geojson',
+						'data': geojson
+					});
+					map.addLayer({
+						'id': 'alpiscoRoute',
+						'type': 'line',
+						'source': 'LineString',
+						'layout': {
+							'line-join': 'round',
+							'line-cap': 'round'
+						},
+						'paint': {
+							'line-color': '#BF93E4',
+							'line-width': 5
+						}
+					});
+
+					const coordinates = geojson.features[0].geometry.coordinates;
+					const bounds = new mapboxgl.LngLatBounds(
+						coordinates[0],
+						coordinates[0]
+					);
+
+					for (const coord of coordinates) {
+						bounds.extend(coord);
+					}
+
+					map.fitBounds(bounds, {
+						padding: 20
+					});
+				}
+
+				const tacoButton = document.getElementById("taco-button");
+				const ginButton = document.getElementById("gin-button");
+				tacoButton.addEventListener("click", tacoClick);
+				ginButton.addEventListener("click", ginClick);
 			});
 		});
 	</script>

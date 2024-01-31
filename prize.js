@@ -115,7 +115,7 @@ function processForm() {
   }
 }
 
-var button = document.getElementById("form-button");
+const button = document.getElementById("form-button");
 button.addEventListener("click", processForm);
 
 function getCountdown(targetDate) {
@@ -125,7 +125,6 @@ function getCountdown(targetDate) {
   const timeDiff = target - now;
 
   const hours = Math.min(99, Math.floor(timeDiff / (1000 * 60 * 60))); // max value or css breaks
-  console.log(hours);
   const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 

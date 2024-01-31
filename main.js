@@ -231,15 +231,17 @@ function spin() {
 }
 
 function handleScroll() {
-  const scrollPercentage = (window.scrollY / (document.body.scrollHeight - window.innerHeight));
-  if (scrollPercentage === 0 || (!hasTouchScreen && scrollPercentage === 1) || (hasTouchScreen && scrollPercentage > 0.95)) {
-    movementTl.restart();
-  } else {
-    movementTl.pause();
-  }
-  const rotation = scrollPercentage * 4 * Math.PI;
+  if (model) {
+    const scrollPercentage = (window.scrollY / (document.body.scrollHeight - window.innerHeight));
+    if (scrollPercentage === 0 || (!hasTouchScreen && scrollPercentage === 1) || (hasTouchScreen && scrollPercentage > 0.95)) {
+      movementTl.restart();
+    } else {
+      movementTl.pause();
+    }
+    const rotation = scrollPercentage * 4 * Math.PI;
 
-  gsap.to(model.rotation, { x: rotation, duration: 0.2, ease: 'none' });
+    gsap.to(model.rotation, { x: rotation, duration: 0.2, ease: 'none' });
+  }
 }
 
 window.addEventListener('scroll', handleScroll);
