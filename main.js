@@ -144,7 +144,6 @@ document.addEventListener("DOMContentLoaded", function() {
       document.querySelector('#taco-button').scrollIntoView({ behavior: 'smooth' });
     }
     gsap.to("#map", {
-      rotation: 360,
       opacity: 0,
       duration: 0.5,
       repeat: 1, // Adjusted repeat based on the desired total duration
@@ -152,7 +151,6 @@ document.addEventListener("DOMContentLoaded", function() {
       ease: "rough({ template: circ.easeOut, strength: 4, points: 50, taper: 'out', randomize: true, clamp:  true})"
     });
 
-    console.log(navigator);
     navigator.vibrate([100, 30, 100, 30, 200, 40, 100, 30, 100, 200, 40]);
   }
 
