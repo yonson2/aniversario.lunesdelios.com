@@ -137,9 +137,21 @@ document.addEventListener("DOMContentLoaded", function() {
     },
   });
 
+  gsap.to('#scroll-more', {
+    scrollTrigger: {
+      trigger: '#scroll-more',
+      start: 'top bottom',
+      end: 'bottom center',
+      scrub: true,
+    },
+    opacity: 0,
+  });
+
+  const scrollMore = document.getElementById("scroll-more");
+  scrollMore.addEventListener("click", () => document.getElementById('more-info').scrollIntoView({ behavior: 'smooth' }));
+
   const startButton = document.getElementById("start-button");
-  startButton.addEventListener("click", startClick);
-  function startClick() {
+  startButton.addEventListener("click", () => {
     if (hasTouchScreen) {
       document.querySelector('#taco-button').scrollIntoView({ behavior: 'smooth' });
     }
@@ -152,9 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     navigator.vibrate([100, 30, 100, 30, 200, 40, 100, 30, 100, 200, 40]);
-  }
-
-
+  });
 });
 
 //
