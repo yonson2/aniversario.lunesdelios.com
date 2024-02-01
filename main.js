@@ -156,10 +156,12 @@ document.addEventListener("DOMContentLoaded", function() {
       document.querySelector('#taco-button').scrollIntoView({ behavior: 'smooth' });
     }
     gsap.to("#map", {
-      opacity: 0,
       duration: 0.5,
       repeat: 1, // Adjusted repeat based on the desired total duration
       yoyo: true,
+      css: {
+        transform: "scale(0.9)"
+      },
       ease: "rough({ template: circ.easeOut, strength: 4, points: 50, taper: 'out', randomize: true, clamp:  true})"
     });
 
