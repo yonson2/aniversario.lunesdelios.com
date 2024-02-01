@@ -5,10 +5,12 @@ import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
+import { RoughEase } from "gsap/EasePack";
 
 gsap.registerPlugin(TextPlugin);
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(Flip);
+gsap.registerPlugin(RoughEase);
 
 const sentences = [
   "1 año luchando contra el sistema",
@@ -45,7 +47,7 @@ if ("maxTouchPoints" in navigator) {
 }
 
 function animateText() {
-  const tl = gsap.timeline({paused: true})
+  const tl = gsap.timeline({ paused: true })
   tl.from(".heading", {
     autoAlpha: 0,
     duration: 1.3,
@@ -57,10 +59,10 @@ function animateText() {
     // stagger: { amount: 0.1 },
     onComplete: onCompleteIntro
   })
-  .progress(1).progress(0) // prerecords the values and properties upfront
-  .play();
+    .progress(1).progress(0) // prerecords the values and properties upfront
+    .play();
 
-  setTimeout(() => {initialSpin(); spinTl = gsap.timeline()}, 600);
+  setTimeout(() => { initialSpin(); spinTl = gsap.timeline() }, 600);
 
   function onCompleteIntro() {
     gsap.to(".heading", {
@@ -135,6 +137,26 @@ document.addEventListener("DOMContentLoaded", function() {
     },
   });
 
+  const startButton = document.getElementById("start-button");
+  startButton.addEventListener("click", startClick);
+  function startClick() {
+    if (hasTouchScreen) {
+      document.querySelector('#taco-button').scrollIntoView({ behavior: 'smooth' });
+    }
+    gsap.to("#map", {
+      rotation: 360,
+      opacity: 0,
+      duration: 0.5,
+      repeat: 1, // Adjusted repeat based on the desired total duration
+      yoyo: true,
+      ease: "rough({ template: circ.easeOut, strength: 4, points: 50, taper: 'out', randomize: true, clamp:  true})"
+    });
+
+    console.log(navigator);
+    navigator.vibrate([100, 30, 100, 30, 200, 40, 100, 30, 100, 200, 40]);
+  }
+
+
 });
 
 //
@@ -158,7 +180,7 @@ renderer.setClearColor(0x000000, 0);
 const loader = new GLTFLoader();
 
 let model;
-const movementTl = gsap.timeline({ repeat: -1, yoyo: true});
+const movementTl = gsap.timeline({ repeat: -1, yoyo: true });
 
 loader.load('models/tarjeta-cara.glb', (gltf) => {
   gltf.scene.traverse((child) => {
@@ -196,15 +218,15 @@ loader.load('models/tarjeta-cara.glb', (gltf) => {
   movementTl.to(model.rotation, { duration: 1.5, x: '-=0.2', z: '-=0.20', ease: "none" })
   // .to(model.rotation, { duration: 1.5, x: '+=0.2', z: '+=0.20', ease: "none" })
 
-    // .to(model.rotation, { duration: 1, x: '+=0.2', ease: 'none' })
-    // .to(model.rotation, { duration: 1, x: '+=0.2', ease: 'none' })
-    // .to(model.rotation, { duration: 1.5, x: '-=0.2', ease: 'none' });
+  // .to(model.rotation, { duration: 1, x: '+=0.2', ease: 'none' })
+  // .to(model.rotation, { duration: 1, x: '+=0.2', ease: 'none' })
+  // .to(model.rotation, { duration: 1.5, x: '-=0.2', ease: 'none' });
 
 });
 
 function initialSpin() {
   if (model) {
-    const tl = gsap.timeline({paused: true});
+    const tl = gsap.timeline({ paused: true });
     tl
       .to('canvas', { duration: 0, opacity: 1, ease: 'power2.inOut' })
       .to(model.rotation, { duration: 0.7, z: -1 * Math.PI * 2, ease: 'none' }, 0)
