@@ -97,9 +97,10 @@
 													<path fill="currentColor"
 														d="m16 30l-8.436-9.949a35.076 35.076 0 0 1-.348-.451A10.889 10.889 0 0 1 5 13a11 11 0 0 1 22 0a10.884 10.884 0 0 1-2.215 6.597l-.001.003s-.3.394-.345.447ZM8.813 18.395s.233.308.286.374L16 26.908l6.91-8.15c.044-.055.278-.365.279-.366A8.901 8.901 0 0 0 25 13a9 9 0 1 0-18 0a8.905 8.905 0 0 0 1.813 5.395" />
 												</svg>
-													<button id="start-button" class="link">Aquí empieza todo</button>.
+												<button id="start-button" class="link">Aquí empieza todo</button>.
 											</dt>
-											<dd class="inline">Quedamos en el No Mames Wey de Santa Engracia, Calle de Sta Engracia, 38, entre Iglesia y Alonso Martínez. Nos
+											<dd class="inline">Quedamos en el No Mames Wey de Santa Engracia, Calle de Sta Engracia, 38, entre
+												Iglesia y Alonso Martínez. Nos
 												vemos a partir de las 20:30</dd>
 										</dl>
 									</div>
@@ -118,18 +119,20 @@
 			</section>
 
 			<section id="last-section" class="h-screen bottom-wave-ratio bottom-wave relative z-[3]">
-				<div id="countdown-padding" class="pt-24"></div>
-				<div id="countdown" class="mx-auto mockup-code max-w-xs relative">
-					<pre data-prefix=">" class="text-warning"><code>Amañando el sorteo...</code></pre>
-					<pre data-prefix=">" class="text-success"><code><span class="countdown">Quedan: <span id="countdown-hours"
-									style="--value:99;"></span>h <span id="countdown-minutes" style="--value:24;"></span>m <span
-									id="countdown-seconds" style="--value:32;"></span>s </span> </code> </pre>
+				<div id="countdown-container">
+					<div id="countdown-padding" class="pt-24 "></div>
+					<div id="countdown" class="mx-auto mockup-code max-w-xs relative">
+						<pre data-prefix=">" class="text-warning"><code>Amañando el sorteo...</code></pre>
+						<pre data-prefix=">" class="text-success"><code><span class="countdown">Quedan: <span id="countdown-hours"
+										style="--value:99;"></span>h <span id="countdown-minutes" style="--value:24;"></span>m <span
+										id="countdown-seconds" style="--value:32;"></span>s </span> </code> </pre>
+					</div>
 				</div>
 				<div id="prize-container"
-					class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 hidden">
+					class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 hidden invisible">
 					<div id="prize-form" class="mx-auto max-w-xl pt-36 lg:pt-48">
 						<div class="px-4 pt-5 sm:p-6">
-							<h3 class="text-lg font-medium leading-6 text-gray-300">Tienes una papeleta?</h3>
+							<h3 class="text-lg font-medium leading-6 text-gray-200">Tienes una papeleta?</h3>
 							<div class="mt-2 max-w-xl text-sm text-gray-400">
 								<p>Introduce tu número y comprueba tu premio.</p>
 							</div>
@@ -151,6 +154,23 @@
 					<div id="prize-result" class="mx-auto max-w-xl py-12 lg:py-36 rounded-lg">
 						<img class="h-48 rounded-lg opacity-100 transition-opacity duration-500 ease-in-out" src="">
 					</div>
+				</div>
+				<div id="outcome-container"
+					class="px-4 mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 sm:gap-y-20 lg:mx-0 lg:max-w-none pt-12 hidden">
+					<p id="outcome-sentence" class="text-center text-gray-200 italic invisible"><span
+							id="outcome-text"></span><button class="link italic" onclick="my_modal_2.showModal()">darte un
+							capricho</button>.</p>
+					<dialog id="my_modal_2" class="modal">
+						<div class="modal-box max-w-5xl bg-cyan-950">
+
+							<stripe-pricing-table pricing-table-id="prctbl_1OfAV3I7eJ0hyMf6kHYephyb"
+								publishable-key="pk_live_51Of8lHI7eJ0hyMf6R4iQBq4ZYuCplQeY0sG0bhoZeAcqOT06T9xYWYWrM1SWTlaLgAsiItpUCRC5wVuZsKEyoX9I00675ClW0B">
+							</stripe-pricing-table>
+						</div>
+						<form method="dialog" class="modal-backdrop">
+							<button>close</button>
+						</form>
+					</dialog>
 				</div>
 				<div id="card-scroll"></div>
 			</section>
@@ -289,6 +309,7 @@
 	</script>
 	<script type="module" src="/prize.js"></script>
 	<script type="module" src="/main.js"></script>
+	<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
 	<svg style="display: none" xmlns="http://www.w3.org/2000/svg">
 		<defs>
 			<symbol id="mcdonalds" viewBox="0 0 24 24">

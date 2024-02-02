@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
   gsap.to("#countdown", {
     autoAlpha: 1,
     scrollTrigger: {
+      id: 'countdownTrigger',
       trigger: '#countdown',
       start: 'clamp(center center)',
       endTrigger: '#last-section',
@@ -155,9 +156,12 @@ document.addEventListener("DOMContentLoaded", function() {
     if (hasTouchScreen) {
       document.querySelector('#taco-button').scrollIntoView({ behavior: 'smooth' });
     }
+
+    // also trigger taco btn
+    document.getElementById('taco-button').click();
     gsap.to("#map", {
       duration: 0.5,
-      repeat: 1, // Adjusted repeat based on the desired total duration
+      repeat: 1,
       yoyo: true,
       css: {
         transform: "scale(0.9)"
@@ -256,7 +260,7 @@ function getRotation() {
 let spinTl;
 function spin() {
   if (!spinTl.isActive()) {
-    spinTl.to(model.rotation, { duration: 1, y: getRotation(), ease: 'none', delay: 0.1 });
+    spinTl.to(model.rotation, { duration: 0.8, y: getRotation(), ease: 'none', delay: 0.1 });
 
   }
   // gsap.to(model.rotation, { duration: 1, y: getRotation(), ease: 'none', delay: 0.1 });

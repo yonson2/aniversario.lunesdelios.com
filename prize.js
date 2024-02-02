@@ -2,14 +2,16 @@ import prand from 'pure-rand';
 
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(TextPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 const to = 10;
-const quejesoTickets = [5];
+const quejesoTickets = [];
 const shirtPrizes = 2;
 const capPrizes = 3;
-const eggPrizes = 1;
+const eggPrizes = 3;
 
 const luckyShirts = [];
 const luckyCaps = [];
@@ -61,6 +63,7 @@ function processForm() {
 
   let imgRoute;
 
+  // insert img
   if (luckyShirts.includes(value)) {
     imgRoute = 'images/premio-camiseta.png';
   } else if (luckyCaps.includes(value)) {
@@ -76,48 +79,72 @@ function processForm() {
   prize.replaceChild(newImg, prize.querySelector('img'));
   gsap.to(prize.querySelector('img'), { duration: 0.50, opacity: 1, ease: 'none' });
 
-    const container = document.getElementById('prize-modal');
-    const element = document.createElement("h3");
-    const prizeAudio = new Audio('premio.mp3');
-    const quejesoAudio = new Audio('quejeso.mp3');
-    const loserAudio = new Audio('loser.mp3');
+  // flash modal with result and sound.
+  const container = document.getElementById('prize-modal');
+  const element = document.createElement("h3");
+  const prizeAudio = new Audio('premio.mp3');
+  const quejesoAudio = new Audio('quejeso.mp3');
+  const loserAudio = new Audio('loser.mp3');
 
-    let audioToPlay = prizeAudio;
-    if (quejesoTickets.includes(value)) {
-      audioToPlay = quejesoAudio;
-      element.classList.add('text-yellow-500');
-      element.textContent = "QUEJESO"
-    } else if (imgRoute === 'images/nada.png') {
-      audioToPlay = loserAudio;
-      element.classList.add('text-red-500');
-      element.textContent = "LOSER"
-    } else {
-      element.classList.add('text-green-600');
-      element.textContent = "PREMIO";
+  let audioToPlay = prizeAudio;
+  if (quejesoTickets.includes(value)) {
+    audioToPlay = quejesoAudio;
+    element.classList.add('text-yellow-500');
+    element.textContent = "QUEJESO"
+  } else if (imgRoute === 'images/nada.png') {
+    audioToPlay = loserAudio;
+    element.classList.add('text-red-500');
+    element.textContent = "LOSER"
+  } else {
+    element.classList.add('text-green-600');
+    element.textContent = "PREMIO";
+  }
+
+  container.appendChild(element);
+  const duration = 0.96;
+  const time = 0;
+
+
+  const tl = gsap.timeline({
+    delay: 0.1,
+    repeat: 4,
+    repeatDelay: 0.5,
+    onStart: () => audioToPlay.play(),
+    onRepeat: () => audioToPlay.play(),
+    onComplete: () => {
+      gsap.set(container, {
+        autoAlpha: 0, duration: 0.2, ease: 'power1.in', onComplete: () => {
+          element.remove();
+          //display text linking to store.
+          document.getElementById('outcome-container').classList.remove('hidden');
+          let text;
+          if (imgRoute === 'images/nada.png') {
+            text = "No te ha tocado nada? No pasa nada, todavía estás a tiempo de ";
+          } else {
+            text = "Te has quedado con ganas de más? Todavía estás a tiempo de "
+          }
+          gsap.set('#outcome-text', { text })
+          gsap.to('#outcome-sentence', { autoAlpha: 1, duration: 2, delay: 0.2 });
+        }
+      });
     }
+  });
 
-    container.appendChild(element);
-    const duration = 0.96;
-    const time = 0;
+  gsap.set(element, { autoAlpha: 0, scale: 0, z: 0.01 });
+  gsap.to(container, { duration: 0, ease: 'none', autoAlpha: 1 })
 
+  tl
+    .to(element, { duration, scale: 1.2, ease: "slow(0.25, 0.9)" }, time)
+    .to(element, { duration, autoAlpha: 1, ease: "slow(0.25, 0.9, true)" }, time);
 
-    const tl = gsap.timeline({
-      delay: 0.1,
-      repeat: 4,
-      repeatDelay: 0.5,
-      onStart: () => audioToPlay.play(),
-      onRepeat: () => audioToPlay.play(),
-      onComplete: () => {
-        gsap.set(container, { autoAlpha: 0, duration: 0.2, ease: 'power1.in', onComplete: () => element.remove() });
-      }
-    });
+  //disable form
+  const input = document.getElementById("location");
+  input.setAttribute("disabled", "disabled");
+  input.classList.add('opacity-50', 'cursor-not-allowed')
+  const btn = document.getElementById("form-button");
+  btn.setAttribute("disabled", "disabled");
+  btn.classList.add('opacity-50', 'cursor-not-allowed')
 
-    gsap.set(element, { autoAlpha: 0, scale: 0, z: 0.01 });
-    gsap.to(container, { duration: 0, ease: 'none', autoAlpha: 1 })
-
-    tl
-      .to(element, { duration, scale: 1.2, ease: "slow(0.25, 0.9)" }, time)
-      .to(element, { duration, autoAlpha: 1, ease: "slow(0.25, 0.9, true)" }, time);
 }
 
 const button = document.getElementById("form-button");
@@ -133,15 +160,36 @@ function getCountdown(targetDate) {
   const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-  return {hours, minutes, seconds};
+  return { hours, minutes, seconds };
 }
 
-setInterval(() => {
+// to trigger a fake event.
+// const targetDate = new Date();
+// targetDate.setSeconds(targetDate.getSeconds() + 5);
+function countdownFn() {
   const targetDate = new Date('2024-02-06T00:00:00');
   const countdown = getCountdown(targetDate);
+
+  // check to see if we have reached our desired time.
+  if (countdown.hours === 0 && countdown.minutes === 0 && countdown.seconds === 0) {
+    gsap.to(['#countdown-container'], {
+      duration: 1,
+      autoAlpha: 0,
+      onComplete: () => {
+        gsap.set(['#countdown-container'], {
+          display: "none",
+          onComplete: () => {
+            gsap.to('#prize-container', { duration: 1, display: "grid", autoAlpha: 1 });
+          },
+        });
+      }
+    })
+    clearInterval(interval);
+  }
 
   document.getElementById('countdown-hours').style.cssText = `--value:${countdown.hours}`;
   document.getElementById('countdown-minutes').style.cssText = `--value:${countdown.minutes}`;
   document.getElementById('countdown-seconds').style.cssText = `--value:${countdown.seconds}`;
 
-}, 1000);
+}
+let interval = setInterval(countdownFn, 1000);
