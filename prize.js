@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(TextPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
-const to = 10;
+const to = 20;
 const quejesoTickets = [];
 const shirtPrizes = 2;
 const capPrizes = 3;
@@ -171,7 +171,7 @@ function countdownFn() {
   const countdown = getCountdown(targetDate);
 
   // check to see if we have reached our desired time.
-  if (countdown.hours === 0 && countdown.minutes === 0 && countdown.seconds === 0) {
+  if (countdown.hours <= 0 && countdown.minutes <= 0 && countdown.seconds <= 0) {
     gsap.to(['#countdown-container'], {
       duration: 1,
       autoAlpha: 0,
