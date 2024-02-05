@@ -7,8 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(TextPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
-const to = 20;
-const quejesoTickets = [];
+const to = 54;
+const quejesoTickets = [7, 33];
 const shirtPrizes = 2;
 const capPrizes = 3;
 const eggPrizes = 3;
@@ -167,7 +167,7 @@ function getCountdown(targetDate) {
 // const targetDate = new Date();
 // targetDate.setSeconds(targetDate.getSeconds() + 5);
 function countdownFn() {
-  const targetDate = new Date('2024-02-05T22:55:00');
+  const targetDate = new Date('2024-02-05T22:45:00');
   const countdown = getCountdown(targetDate);
 
   // check to see if we have reached our desired time.
