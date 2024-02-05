@@ -167,7 +167,7 @@ function getCountdown(targetDate) {
 // const targetDate = new Date();
 // targetDate.setSeconds(targetDate.getSeconds() + 5);
 function countdownFn() {
-  const targetDate = new Date('2024-02-06T00:00:00');
+  const targetDate = new Date('2024-02-05T22:55:00');
   const countdown = getCountdown(targetDate);
 
   // check to see if we have reached our desired time.
