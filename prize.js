@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(TextPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
-const to = 54;
+const to = 55;
 const quejesoTickets = [7, 33];
 const shirtPrizes = 2;
 const capPrizes = 3;
