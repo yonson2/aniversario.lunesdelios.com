@@ -1,7 +1,7 @@
 The website for lunes de lios's first aniversary.
 
 ## Development
-To preview your changes live locally:
+To preview your build locally:
 ```sh
 npm run preview
 ```
