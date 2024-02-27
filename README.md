@@ -16,3 +16,4 @@ To preview your production build locally:
 npm run preview
 ```
 
+There are also a couple of scripts in `package.json` related to building the css for the page.
